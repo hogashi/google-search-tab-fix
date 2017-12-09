@@ -1,12 +1,8 @@
-const DEFAULT_TAB_TITLES = [
-  'すべて', '画像', '動画', '地図', 'ニュース',
-  '書籍', 'ショッピング', 'フライト', 'ファイナンス'
-];
-const DEFAULT_TAB_SIZE = 5;
+const { DEFAULT_TAB_ORDER, DEFAULT_TAB_SIZE } = window;
 const DEFAULT_DIALOG = 'Press button above if OK.';
 const timers = [];
 
-let tabTitles = DEFAULT_TAB_TITLES;
+let tabTitles = DEFAULT_TAB_ORDER;
 let tabShowSize = DEFAULT_TAB_SIZE;
 const mainTag = document.querySelector('main');
 const orderDiv = document.getElementById('order'),
@@ -65,7 +61,7 @@ document.getElementById('down').addEventListener('click', e => {
 });
 
 document.getElementById('orderReset').addEventListener('click', e => {
-  initOrderSelect(DEFAULT_TAB_TITLES);
+  initOrderSelect(DEFAULT_TAB_ORDER);
 });
 
 document.getElementById('sizeReset').addEventListener('click', e => {

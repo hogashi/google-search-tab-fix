@@ -15,7 +15,10 @@
   "content_scripts": [
     {
       "matches": ["https://www.google.co.jp/search*"],
-      "js": ["google-search-tab-fix.js"]
+      "js": [
+        "common.js",
+        "google-search-tab-fix.js"
+      ]
     }
   ],
   "browser_action": {
