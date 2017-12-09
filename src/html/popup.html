@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" type="text/css" href="../css/popup.css">
+  <title>設定 Options - google検索タブ固定 google-search-tab-fix</title>
+</head>
+<body>
+  <header>
+    <div>設定 - Options</div>
+  </header>
+  <main>
+    <h2>順番 <small>order:</small></h2>
+    <div id="order">
+      <div>
+        <button id="up">+</button>
+        <button id="down">-</button>
+        <button id="orderReset">reset</button>
+      </div>
+    </div>
+    <h2>表示数 <small>show number:</small></h2>
+    <div id="size">
+      <input type="number" value="5">
+      <button id="sizeReset">reset</button>
+    </div>
+    <hr>
+    <button id="save">保存 save</button>
+    <div id="dialog">Press button above if OK.</div>
+  </main>
+  <script src="../js/common.js"></script>
+  <script src="../js/popup.js"></script>
+</body>
+</html>

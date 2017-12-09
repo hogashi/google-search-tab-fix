@@ -16,14 +16,14 @@
     {
       "matches": ["https://www.google.co.jp/search*"],
       "js": [
-        "common.js",
-        "google-search-tab-fix.js"
+        "js/common.js",
+        "js/google-search-tab-fix.js"
       ]
     }
   ],
   "browser_action": {
     "default_icon": "icons/icon.png",
-    "default_popup": "popup.html"
+    "default_popup": "html/popup.html"
   },
   "permissions": [
     "storage"
