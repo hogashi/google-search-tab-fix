@@ -2,11 +2,11 @@ const { DEFAULT_TAB_ORDER, DEFAULT_TAB_SIZE } = window;
 const DEFAULT_DIALOG = 'Press button above if OK.';
 const timers = [];
 
-let tabTitles = DEFAULT_TAB_ORDER;
+let tabOrder    = DEFAULT_TAB_ORDER;
 let tabShowSize = DEFAULT_TAB_SIZE;
-const mainTag = document.querySelector('main');
-const orderDiv = document.getElementById('order'),
-      sizeDiv  = document.getElementById('size');
+const mainTag   = document.querySelector('main');
+const orderDiv  = document.getElementById('order'),
+      sizeDiv   = document.getElementById('size');
 const dialogDiv = document.getElementById('dialog');
 let selectTag;
 
@@ -21,7 +21,7 @@ const initOrderSelect = titles => {
     optionTag.insertAdjacentHTML('beforeend', title);
     selectTag.appendChild(optionTag);
   });
-  selectTag.setAttribute('size', `${tabTitles.length}`);
+  selectTag.setAttribute('size', `${tabOrder.length}`);
   orderDiv.insertBefore(selectTag, orderDiv.childNodes[0]);
 }
 
@@ -31,12 +31,12 @@ const initSizeInput = (size) => {
 
 chrome.storage.sync.get(['order', 'size'], items => {
   if (items.order.length > 0) {
-    tabTitles = JSON.parse(items.order);
+    tabOrder = JSON.parse(items.order);
   }
   if (items.size.length > 0) {
     tabShowSize = parseInt(items.size);
   }
-  initOrderSelect(tabTitles);
+  initOrderSelect(tabOrder);
   initSizeInput(tabShowSize);
 });
 
@@ -55,7 +55,7 @@ document.getElementById('up').addEventListener('click', e => {
 
 document.getElementById('down').addEventListener('click', e => {
   const index = selectTag.selectedIndex;
-  if (index < tabTitles.length - 1) {
+  if (index < tabOrder.length - 1) {
     moveOption(index + 1);
   }
 });
@@ -90,8 +90,6 @@ document.getElementById('save').addEventListener('click', e => {
       order: JSON.stringify(order),
       size : `${size}`,
     },
-    () => {
-      showSavedDialog('Options saved!', 2);
-    }
+    () => showSavedDialog('Options saved!', 2)
   );
 });
