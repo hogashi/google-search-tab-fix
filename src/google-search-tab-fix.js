@@ -3,14 +3,18 @@
 //     tab titles (2017/12/07, Japanese):
 //       'すべて', '画像', '動画', '地図', 'ニュース',
 //       'ショッピング', '書籍', 'フライト', 'ファイナンス'
-const tabOrder = [
+let tabOrder = [
   'すべて', '画像', '動画', '地図', 'ニュース',
   '書籍', 'ショッピング', 'フライト', 'ファイナンス'
 ];
 // EDIT HERE
 //   tab show size
 //     how many tabs be shown (others be hidden)
-const tabShowSize = 5;
+let tabShowSize = 5;
+
+chrome.storage.sync.get(['order', 'size'], items => {
+    console.log(items.order, items.size);
+});
 
 // parentNode of shown tabs
 const tabParent = document.getElementById('hdtb-msb-vis');

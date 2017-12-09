@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>設定 Options - google検索タブ固定 google-search-tab-fix</title>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+}
+body {
+  width: 200px;
+  display: flex;
+  flex-flow: column;
+}
+header {
+  max-width: 100%;
+  margin: 5px;
+  border-bottom: 1px solid #000;
+  box-sizing: border-box;
+}
+header > div {
+  width: 100%;
+  font-size: 16px;
+  line-height: 20px;
+  text-align: center;
+}
+main {
+  display: flex;
+  flex-flow: column;
+  margin: 20px;
+}
+h2 {
+  font-size: 16px;
+}
+#order {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  margin-bottom: 15px;
+}
+#order > select {
+  width: 100%;
+  margin: 5px;
+}
+#order > div {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+}
+#order > div > button {
+  display: block;
+  flex: 0 1 auto;
+  font-size: 14px;
+  line-height: 16px;
+}
+#up, #down {
+  width: 24px;
+  margin: 5px 5px 5px 0;
+}
+#orderReset {
+  width: 50px;
+  justify-self: flex-end;
+  margin: 5px 0 5px auto;
+}
+#size {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+#size > input {
+  display: block;
+  flex: 0 1 auto;
+  width: 70px;
+  height: 17px;
+  padding: 2px 5px;
+  font-size: 14px;
+  line-height: 16px;
+}
+#size > #sizeReset {
+  display: block;
+  flex: 0 1 auto;
+  width: 50px;
+  justify-self: flex-end;
+  margin: 5px 0 5px auto;
+  font-size: 14px;
+  line-height: 16px;
+}
+hr {
+  margin: 10px 0;
+}
+#save {
+  width: 150px;
+  align-self: center;
+  font-size: 16px;
+  line-height: 20px;
+}
+#dialog {
+  margin: 5px 20px 0;
+  padding: 2px;
+  font-size: 12px;
+  line-height: 14px;
+  text-align: center;
+  border: 1px solid #000;
+}
+</style>
+</head>
+<body>
+<header>
+  <div>設定 - Options</div>
+</header>
+<main>
+  <h2>順番 <small>order:</small></h2>
+  <div id="order">
+    <div>
+      <button id="up">+</button>
+      <button id="down">-</button>
+      <button id="orderReset">reset</button>
+    </div>
+  </div>
+  <h2>表示数 <small>show number:</small></h2>
+  <div id="size">
+    <input type="number" value="5">
+    <button id="sizeReset">reset</button>
+  </div>
+  <hr>
+  <button id="save">保存 save</button>
+  <div id="dialog">Press button above if OK.</div>
+</main>
+<script src="popup.js"></script>
+</body>
+</html>
