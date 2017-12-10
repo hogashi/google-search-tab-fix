@@ -118,12 +118,12 @@ const fixTabs = (tabOrder, tabShowSize) => {
 chrome.storage.sync.get(['order', 'size'], items => {
   let tabOrder, tabShowSize;
   if (items.order.length > 0) {
-    tabOrder = JSON.parse(items.order);
+    tabOrder = items.order;
   }
   else {
     tabOrder = DEFAULT_TAB_ORDER;
   }
-  if (items.size.length > 0) {
+  if (`${parseInt(items.size)}`.length > 0) {
     tabShowSize = parseInt(items.size);
   }
   else {

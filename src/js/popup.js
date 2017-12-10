@@ -29,12 +29,26 @@ const initSizeInput = (size) => {
   sizeDiv.querySelector('input').value = size;
 }
 
+const setOptions = (options, callback) => {
+  chrome.storage.sync.set(options, callback);
+};
+
 chrome.storage.sync.get(['order', 'size'], items => {
-  if (items.order.length > 0) {
-    tabOrder = JSON.parse(items.order);
+  if (typeof items.order !== 'undefined' &&
+      items.order !== null &&
+      items.order.length > 0) {
+    tabOrder = [...items.order];
   }
-  if (items.size.length > 0) {
+  else {
+    setOptions({order: DEFAULT_TAB_ORDER});
+  }
+  if (typeof items.size !== 'undefined' &&
+      items.size !== null &&
+      `${parseInt(items.size)}`.length > 0) {
     tabShowSize = parseInt(items.size);
+  }
+  else {
+    setOptions({size: DEFAULT_TAB_SIZE});
   }
   initOrderSelect(tabOrder);
   initSizeInput(tabShowSize);
@@ -83,12 +97,10 @@ const showSavedDialog = (message, showSecond) => {
 };
 
 document.getElementById('save').addEventListener('click', e => {
-  const order = Array.from(orderDiv.querySelectorAll('select option')).map(option => option.innerHTML);
-  const size = parseInt(sizeDiv.querySelector('input').value, 10);
-  chrome.storage.sync.set(
+  setOptions(
     {
-      order: JSON.stringify(order),
-      size : `${size}`,
+      order   : Array.from(orderDiv.querySelectorAll('select option')).map(option => option.innerHTML),
+      size    : parseInt(sizeDiv.querySelector('input').value, 10),
     },
     () => showSavedDialog('Options saved!', 2)
   );
