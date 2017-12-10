@@ -1,15 +1,4 @@
-// EDIT HERE
-//   tab order
-//     tab titles (2017/12/07, Japanese):
-//       'すべて', '画像', '動画', '地図', 'ニュース',
-//       'ショッピング', '書籍', 'フライト', 'ファイナンス'
-DEFAULT_TAB_ORDER = [
-  'すべて', '画像', '動画', '地図', 'ニュース',
-  '書籍', 'ショッピング', 'フライト', 'ファイナンス'
-];
-//   tab show size
-//     how many tabs be shown (others be hidden)
-DEFAULT_TAB_SIZE = 5;
+const { DEFAULT_TAB_ORDER, DEFAULT_TAB_SIZE } = window;
 
 const fixTabs = (tabOrder, tabShowSize) => {
   // parentNode of shown tabs
@@ -129,12 +118,12 @@ const fixTabs = (tabOrder, tabShowSize) => {
 chrome.storage.sync.get(['order', 'size'], items => {
   let tabOrder, tabShowSize;
   if (items.order.length > 0) {
-    tabOrder = JSON.parse(items.order);
+    tabOrder = items.order;
   }
   else {
     tabOrder = DEFAULT_TAB_ORDER;
   }
-  if (items.size.length > 0) {
+  if (`${parseInt(items.size)}`.length > 0) {
     tabShowSize = parseInt(items.size);
   }
   else {

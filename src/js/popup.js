@@ -1,20 +1,8 @@
-// EDIT HERE
-//   tab order
-//     tab titles (2017/12/07, Japanese):
-//       'すべて', '画像', '動画', '地図', 'ニュース',
-//       'ショッピング', '書籍', 'フライト', 'ファイナンス'
-const DEFAULT_TAB_ORDER = [
-  'すべて', '画像', '動画', '地図', 'ニュース',
-  '書籍', 'ショッピング', 'フライト', 'ファイナンス'
-];
-//   tab show size
-//     how many tabs be shown (others be hidden)
-const DEFAULT_TAB_SIZE = 5;
-
+const { DEFAULT_TAB_ORDER, DEFAULT_TAB_SIZE } = window;
 const DEFAULT_DIALOG = 'Press button above if OK.';
 const timers = [];
 
-let tabOrder    = [...DEFAULT_TAB_ORDER];
+let tabOrder    = DEFAULT_TAB_ORDER;
 let tabShowSize = DEFAULT_TAB_SIZE;
 const mainTag   = document.querySelector('main');
 const orderDiv  = document.getElementById('order'),
@@ -35,33 +23,32 @@ const initOrderSelect = titles => {
   });
   selectTag.setAttribute('size', `${tabOrder.length}`);
   orderDiv.insertBefore(selectTag, orderDiv.childNodes[0]);
-  debugger;
 }
 
 const initSizeInput = (size) => {
   sizeDiv.querySelector('input').value = size;
 }
 
+const setOptions = (options, callback) => {
+  chrome.storage.sync.set(options, callback);
+};
+
 chrome.storage.sync.get(['order', 'size'], items => {
-  if (JSON.parse(items.order).length > 0) {
-    tabOrder = JSON.parse(items.order);
+  if (typeof items.order !== 'undefined' &&
+      items.order !== null &&
+      items.order.length > 0) {
+    tabOrder = [...items.order];
   }
   else {
-    chrome.storage.sync.set(
-      {
-        order: JSON.stringify(tabOrder),
-      }, null
-    );
+    setOptions({order: DEFAULT_TAB_ORDER});
   }
-  if (items.size.length > 0) {
+  if (typeof items.size !== 'undefined' &&
+      items.size !== null &&
+      `${parseInt(items.size)}`.length > 0) {
     tabShowSize = parseInt(items.size);
   }
   else {
-    chrome.storage.sync.set(
-      {
-        size : `${tabShowSize}`,
-      }, null
-    );
+    setOptions({size: DEFAULT_TAB_SIZE});
   }
   initOrderSelect(tabOrder);
   initSizeInput(tabShowSize);
@@ -110,12 +97,10 @@ const showSavedDialog = (message, showSecond) => {
 };
 
 document.getElementById('save').addEventListener('click', e => {
-  const order = Array.from(orderDiv.querySelectorAll('select option')).map(option => option.innerHTML);
-  const size = parseInt(sizeDiv.querySelector('input').value, 10);
-  chrome.storage.sync.set(
+  setOptions(
     {
-      order: JSON.stringify(order),
-      size : `${size}`,
+      order   : Array.from(orderDiv.querySelectorAll('select option')).map(option => option.innerHTML),
+      size    : parseInt(sizeDiv.querySelector('input').value, 10),
     },
     () => showSavedDialog('Options saved!', 2)
   );
