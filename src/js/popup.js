@@ -1,8 +1,20 @@
-const { DEFAULT_TAB_ORDER, DEFAULT_TAB_SIZE } = window;
+// EDIT HERE
+//   tab order
+//     tab titles (2017/12/07, Japanese):
+//       'すべて', '画像', '動画', '地図', 'ニュース',
+//       'ショッピング', '書籍', 'フライト', 'ファイナンス'
+const DEFAULT_TAB_ORDER = [
+  'すべて', '画像', '動画', '地図', 'ニュース',
+  '書籍', 'ショッピング', 'フライト', 'ファイナンス'
+];
+//   tab show size
+//     how many tabs be shown (others be hidden)
+const DEFAULT_TAB_SIZE = 5;
+
 const DEFAULT_DIALOG = 'Press button above if OK.';
 const timers = [];
 
-let tabOrder    = DEFAULT_TAB_ORDER;
+let tabOrder    = [...DEFAULT_TAB_ORDER];
 let tabShowSize = DEFAULT_TAB_SIZE;
 const mainTag   = document.querySelector('main');
 const orderDiv  = document.getElementById('order'),
@@ -23,6 +35,7 @@ const initOrderSelect = titles => {
   });
   selectTag.setAttribute('size', `${tabOrder.length}`);
   orderDiv.insertBefore(selectTag, orderDiv.childNodes[0]);
+  debugger;
 }
 
 const initSizeInput = (size) => {
@@ -30,11 +43,25 @@ const initSizeInput = (size) => {
 }
 
 chrome.storage.sync.get(['order', 'size'], items => {
-  if (items.order.length > 0) {
+  if (JSON.parse(items.order).length > 0) {
     tabOrder = JSON.parse(items.order);
+  }
+  else {
+    chrome.storage.sync.set(
+      {
+        order: JSON.stringify(tabOrder),
+      }, null
+    );
   }
   if (items.size.length > 0) {
     tabShowSize = parseInt(items.size);
+  }
+  else {
+    chrome.storage.sync.set(
+      {
+        size : `${tabShowSize}`,
+      }, null
+    );
   }
   initOrderSelect(tabOrder);
   initSizeInput(tabShowSize);

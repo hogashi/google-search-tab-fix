@@ -16,7 +16,6 @@
     {
       "matches": ["https://www.google.co.jp/search*"],
       "js": [
-        "js/common.js",
         "js/google-search-tab-fix.js"
       ]
     }

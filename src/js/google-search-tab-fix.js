@@ -1,4 +1,15 @@
-const { DEFAULT_TAB_ORDER, DEFAULT_TAB_SIZE } = window;
+// EDIT HERE
+//   tab order
+//     tab titles (2017/12/07, Japanese):
+//       'すべて', '画像', '動画', '地図', 'ニュース',
+//       'ショッピング', '書籍', 'フライト', 'ファイナンス'
+DEFAULT_TAB_ORDER = [
+  'すべて', '画像', '動画', '地図', 'ニュース',
+  '書籍', 'ショッピング', 'フライト', 'ファイナンス'
+];
+//   tab show size
+//     how many tabs be shown (others be hidden)
+DEFAULT_TAB_SIZE = 5;
 
 const fixTabs = (tabOrder, tabShowSize) => {
   // parentNode of shown tabs
