@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "google検索タブ固定 - google-search-tab-fix",
-  "version": "0.9",
+  "version": "0.91",
 
   "description": "google検索時のタブ(画像、動画、……)の並びを固定します。順序と、いくつ表示するか(それ以外は「もっと見る」に入ります)、を決められます。",
   "icons": {
@@ -14,7 +14,10 @@
 
   "content_scripts": [
     {
-      "matches": ["https://www.google.co.jp/search*"],
+      "matches": [
+        "https://www.google.co.jp/search*",
+        "https://www.google.com/search*"
+      ],
       "js": [
         "js/common.js",
         "js/google-search-tab-fix.js"
